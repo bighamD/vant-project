@@ -1,6 +1,9 @@
 module.exports = {
-    lintOnSave: false,
-    configureWebpack: {
-        mode: 'development',
-    }
-}
+  lintOnSave: false,
+  publicPath: '.',
+
+  configureWebpack: {
+    mode: 'development'
+    // publicPath: '.'
+  }
+};

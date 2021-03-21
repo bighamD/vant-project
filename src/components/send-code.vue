@@ -12,12 +12,12 @@
 </template>
 <script>
 export default {
-    
-    data() {
-        return {
-            tips: '获取验证码'
-        }
-    },
+
+  data () {
+    return {
+      tips: '获取验证码'
+    };
+  }
 };
 </script>
 

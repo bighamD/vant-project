@@ -50,24 +50,24 @@
 <script>
 
 export default {
-    data() {
-        return {
-            border: false,
-            visiblePass: false,
-            loginType: 0,
-            loginTips: '短信验证码',
-            msgCodeTips: '获取验证码',
-            formData: {
-                mchName: '',
-                username: '',
-                msgCode: '',
-                isAgree: ['1'],
-            }
-        }
-    },
-    methods: {
-    }
-}
+  data () {
+    return {
+      border: false,
+      visiblePass: false,
+      loginType: 0,
+      loginTips: '短信验证码',
+      msgCodeTips: '获取验证码',
+      formData: {
+        mchName: '',
+        username: '',
+        msgCode: '',
+        isAgree: ['1']
+      }
+    };
+  },
+  methods: {
+  }
+};
 </script>
 <style scoped lang="less">
     @colorGray: rgba(187, 187, 187, 100);;
@@ -164,7 +164,7 @@ export default {
                 background-color:#ebd428;
                 color: rgba(112, 112, 112, 100)
             }
-           
+
         }
     }
 </style>

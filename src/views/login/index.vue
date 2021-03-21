@@ -7,6 +7,7 @@
             <van-cell-group :border="border">
                 <van-field
                     class="bd mb-18"
+                    type="number"
                     placeholder="请输入手机号码"
                     :border="border"
                     v-model="formData.username"
@@ -16,7 +17,7 @@
                     class="bd"
                     :border="border"
 				    icon="lock"
-                    :type="visiblePass ? 'text' : 'password'"
+                    :type="visiblePass ? 'number' : 'password'"
                     v-model="formData.pwd"
                     placeholder="请输入密码"
                     :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
@@ -28,6 +29,7 @@
                     v-model.number="formData.msgCode"
                     :border="border"
                     class="bd"
+                    type="number"
                     placeholder="请输入验证码"
                 >
                     <template v-if="loginType === 1" #button>
@@ -54,35 +56,35 @@
 </template>
 <script>
 const LOGIN_MSG = {
-    '0': '账号密码', 
-    '1': '短信验证码',
-}
+  0: '账号密码',
+  1: '短信验证码'
+};
 
 export default {
-    data() {
-        return {
-            border: false,
-            visiblePass: false,
-            loginType: 0,
-            loginTips: '短信验证码',
-            msgCodeTips: '获取验证码',
-            formData: {
-                pwd: '',
-                username: '',
-                msgCode: ''
-            }
-        }
+  data () {
+    return {
+      border: false,
+      visiblePass: false,
+      loginType: 0,
+      loginTips: '短信验证码',
+      msgCodeTips: '获取验证码',
+      formData: {
+        pwd: '',
+        username: '',
+        msgCode: ''
+      }
+    };
+  },
+  methods: {
+    changeLoginType () {
+      this.loginType = (this.loginType + 1) % 2;
+      this.loginTips = LOGIN_MSG[this.loginType];
     },
-    methods: {
-        changeLoginType() {
-            this.loginType = (this.loginType + 1) % 2;
-            this.loginTips = LOGIN_MSG[this.loginType];
-        },
-        goPage(path) {
-            this.$router.push(path)
-        }
+    goPage (path) {
+      this.$router.push(path);
     }
-}
+  }
+};
 </script>
 <style scoped lang="less">
     @colorGray: rgba(232, 232, 232, 100);
@@ -149,7 +151,7 @@ export default {
                 background-color:#ebd428;
                 color: rgba(112, 112, 112, 100)
             }
-           
+
         }
     }
 </style>

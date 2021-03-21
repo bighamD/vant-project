@@ -4,19 +4,16 @@
       <div class="user-box">
           <div class="avatar-box">
             <div class="avatar">
-                <van-image
-                  round
-                  width="46"
-                  height="46"
-                  src="https://img.yzcdn.cn/vant/cat.jpeg"
-                />
+              <div class="image-box">
+                  <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt=""/>
+              </div>
               <div class="info-box">
                 <span class="user-name">彭大瓜</span>
                 <span class="user-address">平安银行大厦12F</span>
               </div>
             </div>
           </div>
-          <div class="qrcode-box">
+          <div class="qrcode-box" @click="genQRcode">
             <span class="left-icon">
               <van-icon name="cash-back-record" />
             </span>
@@ -30,13 +27,13 @@
       <div class="order-box">
         <div class="order-nav">
           <div class="order-tit">我的订单</div>
-          <div class="order-more">
+          <div class="order-more" @click="seeMore">
             查看更多
             <van-icon class="mt2" name="arrow" />
           </div>
         </div>
         <div class="order-list">
-          <div class="order-info-box" v-for="i in [1,2,3]" :key="i">
+          <div class="order-info-box" v-for="i in Array(orderListLength)" :key="i">
             <div class="top">
               <span class="order-price">$1231</span>
               <span class="order-status">已支付</span>
@@ -50,8 +47,8 @@
       </div>
     </main>
     <van-tabbar v-model="active">
-        <van-tabbar-item icon="home-o">我的</van-tabbar-item>
-        <van-tabbar-item icon="search">订单</van-tabbar-item>
+        <van-tabbar-item icon="home-o" to="/">我的</van-tabbar-item>
+        <van-tabbar-item icon="search" to='/order-list'>订单</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -65,11 +62,20 @@ export default {
   components: {
     HelloWorld
   },
-  data() {
+  data () {
     return {
-      active: 0
-    }
+      active: 0,
+      orderListLength: 3
+    };
   },
+  methods: {
+    seeMore () {
+      this.$router.push('./order-list');
+    },
+    genQRcode() {
+      this.$router.push('./gen-qrcode');
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -85,6 +91,15 @@ export default {
         .avatar {
           margin-bottom: 17px;
           display:flex;
+          .image-box {
+            height: 46px;
+            width: 46px;
+            img {
+              height: 100%;
+              width:100%;
+              border-radius:50%;
+            }
+          }
           .info-box {
             margin-left: 10px;
             height:46px;
@@ -154,7 +169,7 @@ export default {
               transform: translate(0, 2px)
             }
           }
-          
+
         }
         .order-list {
           .order-info-box {
