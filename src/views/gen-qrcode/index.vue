@@ -40,7 +40,7 @@
                 v-model="formData.username"
                 name="备注"
                 label="备注"
-                autosize 
+                autosize
                 type="textarea"
                 placeholder="请填写备注"
             />
@@ -82,17 +82,12 @@
             </div>
             </van-form>
         </div>
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="home-o">我的</van-tabbar-item>
-            <van-tabbar-item icon="search">订单</van-tabbar-item>
-        </van-tabbar>
     </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      active: 1,
       formData: {
         checked: 1
       }
@@ -103,7 +98,7 @@ export default {
 
     },
     onClickLeft () {
-        this.$router.go(-1);
+      this.$router.go(-1);
     }
   }
 };

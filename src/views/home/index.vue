@@ -46,10 +46,6 @@
         </div>
       </div>
     </main>
-    <van-tabbar v-model="active">
-        <van-tabbar-item icon="home-o" to="/">我的</van-tabbar-item>
-        <van-tabbar-item icon="search" to='/order-list'>订单</van-tabbar-item>
-    </van-tabbar>
   </div>
 </template>
 
@@ -72,7 +68,7 @@ export default {
     seeMore () {
       this.$router.push('./order-list');
     },
-    genQRcode() {
+    genQRcode () {
       this.$router.push('./gen-qrcode');
     }
   }

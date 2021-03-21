@@ -11,7 +11,7 @@
         <div class="order-container">
             <van-pull-refresh v-model="state.loading" @refresh="onRefresh" v-if="state.list.length">
                   <van-list
-                        v-model:loading="state.loading"
+                        v-model="state.loading"
                         :finished="state.finished"
                         finished-text="—— 暂无更多 ——"
                         @load="onLoad"
@@ -39,21 +39,12 @@
                 暂无订单
             </div>
         </div>
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="home-o" to="/">我的</van-tabbar-item>
-            <van-tabbar-item icon="search" to='/order-list'>订单</van-tabbar-item>
-        </van-tabbar>
     </div>
 </template>
 <script>
-import VueQrcode from 'vue-qrcode';
 export default {
-  components: {
-    VueQrcode
-  },
   data () {
     return {
-      active: 1,
       border: false,
       state: {
         list: [1, 2],
@@ -67,7 +58,7 @@ export default {
 
     },
     onClickLeft () {
-        this.$router.go(-1);
+      this.$router.go(-1);
     },
     onRefresh () {
       this.state.finished = false;

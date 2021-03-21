@@ -87,7 +87,7 @@ export default {
 };
 </script>
 <style scoped lang="less">
-    @colorGray: rgba(187, 187, 187, 100);;
+    @colorGray: rgba(232, 232, 232, 100);
     @colorBlue:#2876eb;
     .nav-box {
         position:absolute;

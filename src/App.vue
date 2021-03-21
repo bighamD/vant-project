@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">About</router-link>
-      <router-link to="/register">注册</router-link>
-    </div> -->
     <router-view/>
+    <tabbar />
   </div>
 </template>
+
+<script>
+import tabbar from './views/tarbar/index';
+export default {
+  components: {
+    tabbar
+  }
+};
+</script>
 
 <style lang="less">
 #app {

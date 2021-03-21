@@ -30,15 +30,15 @@
                         </template>
                     </van-field>
                     <van-field
-                    v-if="loginType === 0"
-                    class="bd"
-                    :border="border"
-				    icon="lock"
-                    :type="visiblePass ? 'text' : 'password'"
-                    v-model="formData.pwd"
-                    placeholder="设置密码"
-                    :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
-				    @click-right-icon="visiblePass = !visiblePass"
+                        v-if="loginType === 0"
+                        class="bd"
+                        :border="border"
+                        icon="lock"
+                        :type="visiblePass ? 'text' : 'password'"
+                        v-model="formData.pwd"
+                        placeholder="设置密码"
+                        :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
+                        @click-right-icon="visiblePass = !visiblePass"
                     ></van-field>
                     <van-button class="submit-btn mt-12 ">完成</van-button>
                 </van-cell-group>
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 <style scoped lang="less">
-    @colorGray: rgba(187, 187, 187, 100);;
+    @colorGray: rgba(232, 232, 232, 100);
     @colorBlue:#2876eb;
     .nav-box {
         position:absolute;
