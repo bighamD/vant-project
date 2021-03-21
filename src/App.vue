@@ -1,15 +1,14 @@
 <template>
   <div id="app">
     <router-view/>
-    <tabbar />
   </div>
 </template>
 
 <script>
-import tabbar from './views/tarbar/index';
+// import tabbar from './views/tarbar/index';
 export default {
   components: {
-    tabbar
+    // tabbar
   }
 };
 </script>

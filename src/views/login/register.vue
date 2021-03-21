@@ -18,13 +18,30 @@
                         placeholder="请输入手机号码"
                         :border="border"
                         v-model="formData.username"
+                        type="number"
                     ></van-field>
-                    <van-field
+                    <!-- <van-field
                         class="bd mb-7"
                         placeholder="请输入商户全称"
                         :border="border"
                         v-model="formData.mchName"
-                    ></van-field>
+                    ></van-field> -->
+                    <van-field
+                        v-model="formData.mchName"
+                        readonly
+                        name="picker"
+                        class="ipt-picker"
+                        placeholder="请选择商户"
+                        @click="formData.showPicker = true"
+                        />
+                        <van-popup v-model="formData.showPicker" position="bottom">
+                            <van-picker
+                                show-toolbar
+                                :columns="columns"
+                                @confirm="onConfirm"
+                                @cancel="formData.showPicker = false"
+                            />
+                        </van-popup>
                     <van-field
                         class="bd mb-7"
                         v-model.number="formData.msgCode"
@@ -74,15 +91,21 @@ export default {
       loginType: 0,
       loginTips: '短信验证码',
       msgCodeTips: '获取验证码',
+      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
       formData: {
         mchName: '',
         username: '',
         msgCode: '',
-        isAgree: ['1']
+        isAgree: ['1'],
+        showPicker: false,
       }
     };
   },
   methods: {
+      onConfirm (value) {
+        this.formData.mchName = value;
+        this.formData.showPicker = false;
+      }
   }
 };
 </script>
@@ -134,6 +157,11 @@ export default {
         }
         .login-box {
             box-sizing: border-box;
+            .ipt-picker {
+                border-radius: 24px;
+                margin-bottom: 6px;
+                border: 1px solid #e8e8e8
+            }
             .c-blue {
                 color: @colorBlue;
                 padding: 8px;

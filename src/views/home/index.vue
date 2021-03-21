@@ -15,7 +15,7 @@
           </div>
           <div class="qrcode-box" @click="genQRcode">
             <span class="left-icon">
-              <van-icon name="cash-back-record" />
+              <!-- <van-icon name="cash-back-record" /> -->
             </span>
             <span class="text">生成支付码</span>
             <span class="right-icon">
@@ -46,17 +46,18 @@
         </div>
       </div>
     </main>
+    <van-tabbar  v-model="active">
+        <van-tabbar-item icon="home-o" to="/home">我的</van-tabbar-item>
+        <van-tabbar-item icon="search" to="/order-list">订单</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
   },
   data () {
     return {

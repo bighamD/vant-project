@@ -82,12 +82,17 @@
             </div>
             </van-form>
         </div>
+        <van-tabbar  v-model="active">
+            <van-tabbar-item icon="home-o" to="/home">我的</van-tabbar-item>
+            <van-tabbar-item icon="search" to="/order-list">订单</van-tabbar-item>
+        </van-tabbar>             
     </div>
 </template>
 <script>
 export default {
   data () {
     return {
+      active: 0,
       formData: {
         checked: 1
       }
@@ -151,7 +156,7 @@ export default {
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%) scale(1.2);
-        transition: transform .15s ease-in;
+        transition: transform .1s ease-in;
     }
 
     .el-radio__inner.is-checked :after {

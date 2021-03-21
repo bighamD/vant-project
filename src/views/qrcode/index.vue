@@ -22,6 +22,10 @@
                 说明： 请长按二维码识别或者保存到本地
             </div>
         </div>
+        <van-tabbar  v-model="active">
+            <van-tabbar-item icon="home-o" to="/home">我的</van-tabbar-item>
+            <van-tabbar-item icon="search" to="/order-list">订单</van-tabbar-item>
+        </van-tabbar>            
     </div>
 </template>
 <script>
@@ -32,6 +36,7 @@ export default {
   },
   data () {
     return {
+      active: '0',
       formData: {
         checked: 1
       }

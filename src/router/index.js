@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/home/index.vue')
   },
@@ -16,6 +16,10 @@ const routes = [
       needTabbar: false
     },
     component: () => import(/* webpackChunkName: "login" */ '../views/login/register.vue')
+  },
+  {
+    path: '/',
+    redirect: '/login'
   },
   {
     path: '/login',
