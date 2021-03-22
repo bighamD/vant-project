@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/home/index.vue')
+    component: () => import(/* webpackChunkName: "home" */ '../views/home/index.vue')
   },
   {
     path: '/register',
@@ -15,7 +15,7 @@ const routes = [
     meta: {
       needTabbar: false
     },
-    component: () => import(/* webpackChunkName: "login" */ '../views/login/register.vue')
+    component: () => import(/* webpackChunkName: "register" */ '../views/login/register.vue')
   },
   {
     path: '/',
@@ -35,22 +35,22 @@ const routes = [
     meta: {
       needTabbar: false
     },
-    component: () => import(/* webpackChunkName: "login" */ '../views/login/reset-password.vue')
+    component: () => import(/* webpackChunkName: "reset-password" */ '../views/login/reset-password.vue')
   },
   {
     path: '/gen-qrcode',
     name: 'GenQRcode',
-    component: () => import(/* webpackChunkName: "login" */ '../views/gen-qrcode/index.vue')
+    component: () => import(/* webpackChunkName: "gen-qrcode" */ '../views/gen-qrcode/index.vue')
   },
   {
     path: '/qrcode',
     name: 'QRcode',
-    component: () => import(/* webpackChunkName: "login" */ '../views/qrcode/index.vue')
+    component: () => import(/* webpackChunkName: "qrcode" */ '../views/qrcode/index.vue')
   },
   {
     path: '/order-list',
     name: 'OrderList',
-    component: () => import(/* webpackChunkName: "login" */ '../views/order-list/index.vue')
+    component: () => import(/* webpackChunkName: "order-list" */ '../views/order-list/index.vue')
   }
 ];
 

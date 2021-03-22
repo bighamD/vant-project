@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="mch-name">爱慧支付有限公司</div>
                                 <div class="finished-tit title">订单生成时间</div>
-                                <div class="finished-date content">2021-02-02 16:44：23</div>
+                                <div class="finished-date content">2021-02-02 16:44:23</div>
                                 <div class="user-name title">客户姓名</div>
                                 <div class="name content">彭大瓜</div>
                                 <div class="phone title">手机号</div>
@@ -94,16 +94,16 @@ export default {
     @fontColor: #101010;
     .contaniner {
         background-color: #F1F1F1 ;
-        height:100%;
+        height:auto;
     }
     .order-container {
-        padding: 10px;
+        padding: 14px;
         .cell-detail {
             height:245px;
-            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.31);
-            border: 1px solid rgba(255, 255, 255, 100);
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.31);
+            border: 1px solid #f1f1f1;
             margin-bottom:12px;
-            border-radius: 5px;
+            border-radius: 12px;
             .order-details {
                 div {
                     line-height: 28px;

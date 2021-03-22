@@ -122,10 +122,10 @@ export default {
         padding: 0 20px;
         .submit-box {
             margin: 8px;
-            margin-top: 50px;
+            margin-top: 40px;
         }
         .van-radio--horizontal {
-            margin-right: 40px;
+            padding-right: 30px;
         }
     }
     .van-cell {

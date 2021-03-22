@@ -1,12 +1,6 @@
 <template>
     <div >
-        <nav class="nav-box" @click="() => this.$router.push('/login')">
-            <span class="arrow">
-                <van-icon size="18px" name="arrow-left" />
-            </span>
-            <span class="left-text">返回登录</span>
-            <span class="title"></span>
-        </nav>
+        <NavBar @on-back="onBack"></NavBar>
         <main class="container">
             <div class="logo-box">
                 <img src="../../../public/img/logo.png" alt="">
@@ -20,14 +14,8 @@
                         v-model="formData.username"
                         type="number"
                     ></van-field>
-                    <!-- <van-field
-                        class="bd mb-7"
-                        placeholder="请输入商户全称"
-                        :border="border"
-                        v-model="formData.mchName"
-                    ></van-field> -->
                     <van-field
-                        v-model="formData.mchName"
+                        v-model="formData.officeId"
                         readonly
                         name="picker"
                         class="ipt-picker"
@@ -44,12 +32,13 @@
                         </van-popup>
                     <van-field
                         class="bd mb-7"
-                        v-model.number="formData.msgCode"
+                        v-model="formData.code"
                         :border="border"
+                        type="number"
                         placeholder="请输入验证码"
                     >
                         <template  #button>
-                            <span class="c-blue" >{{msgCodeTips}}</span>
+                            <count-down></count-down>
                         </template>
                     </van-field>
                     <van-field
@@ -58,12 +47,12 @@
                         :border="border"
                         icon="lock"
                         :type="visiblePass ? 'text' : 'password'"
-                        v-model="formData.pwd"
+                        v-model="formData.password"
                         placeholder="设置密码"
                         :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
                         @click-right-icon="visiblePass = !visiblePass"
                     ></van-field>
-                    <van-button class="submit-btn mt-12 ">注册</van-button>
+                    <van-button class="submit-btn mt-12">注册</van-button>
                 </van-cell-group>
             </div>
             <div class="argeement-box">
@@ -82,20 +71,28 @@
     </div>
 </template>
 <script>
+import NavBar from '../../components/nav-back';
+import CountDown from '../../components/count-down.vue';
 
 export default {
+  components: {
+      NavBar,
+      CountDown
+  },
   data () {
     return {
       border: false,
       visiblePass: false,
       loginType: 0,
       loginTips: '短信验证码',
-      msgCodeTips: '获取验证码',
+      codeTips: '获取验证码',
       columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
       formData: {
-        mchName: '',
+        officeId: '',
+        officeName: '',
         username: '',
-        msgCode: '',
+        code: '',
+        password: '',
         isAgree: ['1'],
         showPicker: false,
       }
@@ -103,8 +100,16 @@ export default {
   },
   methods: {
       onConfirm (value) {
-        this.formData.mchName = value;
+        this.formData.officeId = value;
         this.formData.showPicker = false;
+      },
+      onBack() {
+          this.$router.push({
+              path: '/login',
+            //   query: {
+            //       username: this.formData.username
+            //   }
+          });
       }
   }
 };
@@ -112,21 +117,6 @@ export default {
 <style scoped lang="less">
     @colorGray: rgba(232, 232, 232, 100);
     @colorBlue:#2876eb;
-    .nav-box {
-        position:absolute;
-        height:46px;
-        top:20px;
-        left:8px;
-        .left-text {
-            font-size: 14px;
-            line-height: 46px;
-            height: 46px;
-            display:inline-block;
-            padding-left: 4px;
-            transform: translateY(-4px)
-
-        }
-    }
     .container {
         padding: 30px 24px 0 24px;
         .logo-box {
@@ -163,9 +153,9 @@ export default {
                 border: 1px solid #e8e8e8
             }
             .c-blue {
-                color: @colorBlue;
+                color: #707070;
                 padding: 8px;
-                font-size: 12px;
+                // font-size: 12px;
                 &:before{
                     content: '';
                     position: absolute;

@@ -26,16 +26,16 @@ export const resetPassword = (params = {}) => {
 
 export const sendMsg = (params = {}) => {
     return fetchData({
-        method: 'post',
-        data: params,
+        method: 'get',
+        params,
         url: '/education/user/send_sms'
     });
 }
 
 export const getOfficialList = (params = {}) => {
     return fetchData({
-        method: 'post',
-        data: params,
+        method: 'get',
+        params,
         url: '/education/user/office_list'
     });
 }
@@ -50,8 +50,8 @@ export const saveOrders = (params = {}) => {
 
 export const getOrderList = (params = {}) => {
     return fetchData({
-        method: 'post',
-        data: params,
+        method: 'get',
+        params,
         url: '/education/order/data'
     })
 }
@@ -66,8 +66,8 @@ export const getOrderDetail = (params = {}) => {
 
 export const getQRcode = (params = {}) => {
     return fetchData({
-        method: 'post',
-        data: params,
+        method: 'get',
+        params,
         url: '/education/order/qr_code'
     })
 }

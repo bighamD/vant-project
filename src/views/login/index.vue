@@ -18,7 +18,7 @@
                     :border="border"
 				    icon="lock"
                     :type="visiblePass ? 'number' : 'password'"
-                    v-model="formData.pwd"
+                    v-model="formData.password"
                     placeholder="请输入密码"
                     :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
 				    @click-right-icon="visiblePass = !visiblePass"
@@ -26,14 +26,14 @@
 
                   <van-field
                     v-if="loginType === 1"
-                    v-model.number="formData.msgCode"
+                    v-model.number="formData.code"
                     :border="border"
                     class="bd"
                     type="number"
                     placeholder="请输入验证码"
                 >
-                    <template v-if="loginType === 1" #button>
-                        <span class="c-blue" >{{msgCodeTips}}</span>
+                    <template  #button>
+                        <count-down ></count-down>
                     </template>
                 </van-field>
                 <div class="login-tip">
@@ -55,23 +55,31 @@
     </div>
 </template>
 <script>
+import getUsername from '../../mixins/index';
+import CountDown from '../../components/count-down.vue';
+
 const LOGIN_MSG = {
-  0: '账号密码',
-  1: '短信验证码'
+  0: '短信验证码',
+  1: '账号密码',
 };
 
 export default {
+  mixins:[ getUsername],
+  components: {
+      CountDown
+  },
   data () {
     return {
       border: false,
       visiblePass: false,
       loginType: 0,
       loginTips: '短信验证码',
-      msgCodeTips: '获取验证码',
+      codeTips: '获取验证码',
       formData: {
-        pwd: '',
+        password: '',
         username: '',
-        msgCode: ''
+        type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
+        code: ''
       }
     };
   },
@@ -81,7 +89,12 @@ export default {
       this.loginTips = LOGIN_MSG[this.loginType];
     },
     goPage (path) {
-      this.$router.push(path);
+      this.$router.push({
+          path,
+        //   query: {
+        //       username: this.formData.username,
+        //   }
+      });
     }
   }
 };
