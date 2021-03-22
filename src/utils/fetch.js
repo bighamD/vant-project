@@ -9,9 +9,9 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    const token =  getToken();
+    const token = getToken();
     if (token) {
-      config.headers['token'] = token;
+      config.headers.token = token;
     }
     return config;
   },

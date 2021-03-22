@@ -10,24 +10,24 @@
 </template>
 <script>
 export default {
-    props: {
-        time: {
-            type: Number,
-            default: () => 60 * 100,
-        }
-    },
-    data() {
-        return {
-            hasSendMsg: false,
-        }
-    },
-    methods: {
-        onCountDownFinish() {
-            this.isCountDownFinished = true;
-            this.hasSendMsg = false;
-        },
+  props: {
+    time: {
+      type: Number,
+      default: () => 60 * 1000
     }
-}
+  },
+  data () {
+    return {
+      hasSendMsg: false
+    };
+  },
+  methods: {
+    onCountDownFinish () {
+      this.isCountDownFinished = true;
+      this.hasSendMsg = false;
+    }
+  }
+};
 </script>
 
 <style lang="less">

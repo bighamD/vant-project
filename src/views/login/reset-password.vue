@@ -21,7 +21,7 @@
             placeholder="请输入验证码"
           >
             <template #button>
-                <count-down ></count-down>
+              <count-down></count-down>
             </template>
           </van-field>
           <van-field
@@ -41,47 +41,48 @@
   </div>
 </template>
 <script>
-import getUsername from "../../mixins/index";
+import getUsername from '../../mixins/index';
 import NavBar from '../../components/nav-back';
 import CountDown from '../../components/count-down.vue';
 export default {
+  name: 'ResetPassword',
   mixins: [getUsername],
   components: {
-      NavBar,
-      CountDown
+    NavBar,
+    CountDown
   },
-  data() {
+  data () {
     return {
       border: false,
       visiblePass: false,
       isCountDownFinished: false,
       hasSendMsg: false,
-      loginTips: "短信验证码",
-      codeTips: "获取验证码",
+      loginTips: '短信验证码',
+      codeTips: '获取验证码',
       formData: {
-        username: "",
-        code: "",
-        password: "",
-      },
+        username: '',
+        code: '',
+        password: ''
+      }
     };
   },
   methods: {
-    onCountDownFinish() {
-        this.isCountDownFinished = true;
-        this.hasSendMsg = false;
+    onCountDownFinish () {
+      this.isCountDownFinished = true;
+      this.hasSendMsg = false;
     },
-    toggleStatus() {
-        this.hasSendMsg = true;
+    toggleStatus () {
+      this.hasSendMsg = true;
     },
-    onBack() {
+    onBack () {
       this.$router.push({
-        path: "/login",
-        // query: {
-        //   username: this.formData.username,
-        // },
+        path: '/login',
+        query: {
+          username: this.formData.username
+        }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="less">
@@ -120,7 +121,7 @@ export default {
     .c-blue {
       color: #707070;
       padding: 8px;
-    //   font-size: 12px;
+      //   font-size: 12px;
       &:before {
         content: "";
         position: absolute;
@@ -131,7 +132,7 @@ export default {
       }
     }
     .h46 {
-        height: 46px;
+      height: 46px;
     }
     .bd {
       border: 1px solid @colorGray;
@@ -157,15 +158,6 @@ export default {
         color: @colorGray;
         line-height: 46px;
       }
-    }
-    .submit-btn {
-      box-sizing: border-box;
-      height: 46px;
-      width: 100%;
-      border-color: #fff;
-      border-radius: 23px;
-      background-color: #ebd428;
-      color: rgba(112, 112, 112, 100);
     }
   }
 }

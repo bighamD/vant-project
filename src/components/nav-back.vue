@@ -9,12 +9,12 @@
 </template>
 <script>
 export default {
-    methods: {
-        onBack() {
-            this.$emit('on-back');
-        }
+  methods: {
+    onBack () {
+      this.$emit('on-back');
     }
-}
+  }
+};
 </script>
 <style lang="less" scoped>
     .nav-box {
