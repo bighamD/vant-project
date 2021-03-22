@@ -4,6 +4,7 @@
       <img src="../../../public/img/logo.png" alt="" />
     </div>
     <div class="login-box">
+        <van-loading />
       <van-cell-group :border="border">
         <van-field
           class="bd mb-18"

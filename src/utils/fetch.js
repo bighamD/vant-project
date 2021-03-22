@@ -2,9 +2,9 @@ import axios from 'axios';
 import { getToken } from '@/utils/auth';
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: 'http://116.62.161.102/education/a',
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000
 });
 
 service.interceptors.request.use(
