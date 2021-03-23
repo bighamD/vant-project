@@ -21,7 +21,7 @@
             placeholder="请输入验证码"
           >
             <template #button>
-              <count-down></count-down>
+              <count-down :mobile="formData.username" :type="3"></count-down>
             </template>
           </van-field>
           <van-field

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span v-if="!hasSendMsg" @click="() => this.hasSendMsg = true" class="c-blue">获取验证码</span>
+        <span v-if="!hasSendMsg" @click="sendMsgCode" class="c-blue">获取验证码</span>
         <van-count-down v-else :time="time" @finish="onCountDownFinish">
             <template v-slot="time">
                 <span class="count-down">{{ time.seconds }} s后</span>
@@ -9,11 +9,18 @@
     </div>
 </template>
 <script>
+import {sendMsg} from '../api/index'
 export default {
   props: {
     time: {
       type: Number,
       default: () => 60 * 1000
+    },
+    type: {
+      type: [Number, String]
+    },
+    mobile: {
+      type: [Number, String]
     }
   },
   data () {
@@ -25,6 +32,13 @@ export default {
     onCountDownFinish () {
       this.isCountDownFinished = true;
       this.hasSendMsg = false;
+    },
+    sendMsgCode() {
+        this.hasSendMsg = true;
+        sendMsg({
+          mobie: this.mobile,
+          type: +this.type
+        });
     }
   }
 };

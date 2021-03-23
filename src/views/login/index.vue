@@ -34,7 +34,7 @@
           placeholder="请输入验证码"
         >
           <template #button>
-            <count-down></count-down>
+            <count-down :mobile="formData.username" type=2></count-down>
           </template>
         </van-field>
         <div class="login-tip">
@@ -77,7 +77,7 @@ export default {
         username: '',
         type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
         code: ''
-      }
+      },
     };
   },
   methods: {

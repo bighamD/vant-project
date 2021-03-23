@@ -15,7 +15,7 @@
             type="number"
           ></van-field>
           <van-field
-            v-model="formData.officeId"
+            v-model="formData.officeName"
             readonly
             name="picker"
             class="ipt-picker"
@@ -25,7 +25,7 @@
           <van-popup v-model="showPicker" position="bottom">
             <van-picker
               show-toolbar
-              :columns="columns"
+              :columns="officeNames"
               @confirm="onConfirm"
               @cancel="showPicker = false"
             />
@@ -38,7 +38,7 @@
             placeholder="请输入验证码"
           >
             <template #button>
-              <count-down></count-down>
+            <count-down :mobile="formData.username" type=1></count-down>
             </template>
           </van-field>
           <van-field
@@ -52,13 +52,13 @@
             :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
             @click-right-icon="visiblePass = !visiblePass"
           ></van-field>
-          <van-button class="submit-btn mt-12">注册</van-button>
+          <van-button @click="onSubmit" class="submit-btn mt-12">注册</van-button>
         </van-cell-group>
       </div>
       <div class="argeement-box">
         <van-checkbox-group
           icon-size="16px"
-          v-model="formData.isAgree"
+          v-model="isAgree"
           :max="1"
         >
           <van-checkbox name="1">
@@ -75,7 +75,7 @@
 <script>
 import NavBar from '../../components/nav-back';
 import CountDown from '../../components/count-down.vue';
-
+import {register, getOfficialList} from '../../api/index'
 export default {
   name: 'Register',
   components: {
@@ -89,22 +89,34 @@ export default {
       loginType: 0,
       loginTips: '短信验证码',
       codeTips: '获取验证码',
-      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
       formData: {
         officeId: '',
         officeName: '',
         username: '',
         code: '',
         password: '',
-        isAgree: ['1'],
       },
+      isAgree: [],
+      officeList: [],
+      officeNames: [],
       showPicker: false
     };
   },
+  created(){
+    getOfficialList().then(({body}) => {
+      this.officeList = body.officeList.map(({id, name}) => ({officeId: id, officeName: name}));
+      this.officeNames = this.officeList.map(v => v.officeName);
+    });
+  },
   methods: {
     onConfirm (value) {
-      this.formData.officeId = value;
+      this.formData.officeName = value;
+      this.formData.officeId = this.getOfficeId(value);
       this.showPicker = false;
+    },
+    getOfficeId(name) {
+      const item =  this.officeList.find(v => v.officeName === name);
+      return item && item.officeId;
     },
     onBack () {
       this.$router.push({
@@ -118,6 +130,16 @@ export default {
         this.$dialog.alert({
             message: '<div style="color: red">我已经阅读</div>'
         });
+    },
+    hasCheckAgreeMent() {
+      return this.isAgree.length > 0;
+    },
+    onSubmit() {
+      if (!this.hasCheckAgreeMent()) {
+        this.$dialog.alert({
+          message: '请先勾选同意协议'
+        });
+      }
     }
   }
 };
