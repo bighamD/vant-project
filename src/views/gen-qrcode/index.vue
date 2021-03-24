@@ -94,7 +94,7 @@ export default {
     return {
       active: 0,
       formData: {
-        checked: 1
+        checked: '1'
       }
     };
   },

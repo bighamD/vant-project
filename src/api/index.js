@@ -2,7 +2,7 @@ import fetchData from '../utils/fetch';
 
 export const register = (params = {}) => {
   return fetchData({
-    data: params,
+    params,
     url: '/education/user/register',
     method: 'post'
   });
@@ -10,7 +10,7 @@ export const register = (params = {}) => {
 
 export const login = (params = {}) => {
   return fetchData({
-    data: params,
+    params,
     method: 'post',
     url: '/education/user/login'
   });
@@ -19,7 +19,7 @@ export const login = (params = {}) => {
 export const resetPassword = (params = {}) => {
   return fetchData({
     url: '/education/user/rest_pwd',
-    data: params,
+    params,
     method: 'post'
   });
 };

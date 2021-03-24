@@ -15,3 +15,7 @@
     background-color:#ebd428;
     color: rgba(112, 112, 112, 100)
 }
+
+.van-dialog__confirm, .van-dialog__confirm:active {
+    color: #101010;
+}

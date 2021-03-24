@@ -5,10 +5,10 @@
           <div class="avatar-box">
             <div class="avatar">
               <div class="image-box">
-                  <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt=""/>
+                  <img :src="userInfo.photo" alt=""/>
               </div>
               <div class="info-box">
-                <span class="user-name">彭大瓜</span>
+                <span class="user-name">{{userInfo.officeName}}</span>
                 <span class="user-address">平安银行大厦12F</span>
               </div>
             </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="order-list">
-          <div class="order-info-box" v-for="i in Array(orderListLength)" :key="i">
+          <div class="order-info-box" v-for="i in orderList" :key="i">
             <div class="top">
               <span class="order-price">$1231</span>
               <span class="order-status">已支付</span>
@@ -43,6 +43,7 @@
               <span class="create-date">20220-12-30</span>
             </div>
           </div>
+          <div>暂无订单</div>
         </div>
       </div>
     </main>
@@ -54,7 +55,8 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex';
+import {getOrderList} from '../../api/index';
 export default {
   name: 'Home',
   components: {
@@ -62,10 +64,21 @@ export default {
   data () {
     return {
       active: 0,
-      orderListLength: 3
+      orderListLength: 3,
+      orderList: [],
     };
   },
+  created() {
+    this.reqOrderList();
+  },
+  computed: {
+    ...mapState(['userInfo']),
+  },
   methods: {
+    async reqOrderList() {
+      const {row = []} = await getOrderList();
+      this.orderList = row.slice(0, 3);
+    },
     seeMore () {
       this.$router.push('./order-list');
     },
@@ -172,7 +185,7 @@ export default {
           .order-info-box {
             margin-bottom: 22px;
             height:70px;
-            box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 5px #ccc;
             border-radius:10px;
             background-color: rgba(255, 255, 255, 100);
             .top{

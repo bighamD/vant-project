@@ -1,8 +1,8 @@
 <template>
     <nav class="nav-box" @click="onBack">
-        <span class="arrow">
+        <!-- <span class="arrow">
             <van-icon size="18px" name="arrow-left" />
-        </span>
+        </span> -->
         <span class="left-text">返回登录</span>
         <span class="title"></span>
     </nav>
@@ -21,7 +21,7 @@ export default {
         position:absolute;
         height:46px;
         // top:20px;
-        left:8px;
+        left:20px;
         .left-text {
             font-size: 14px;
             line-height: 46px;

@@ -29,12 +29,12 @@
             :border="border"
             icon="lock"
             :type="visiblePass ? 'text' : 'password'"
-            v-model="formData.pwd"
+            v-model="formData.password"
             placeholder="设置密码"
             :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
             @click-right-icon="visiblePass = !visiblePass"
           ></van-field>
-          <van-button class="submit-btn mt-12">完成</van-button>
+          <van-button @click="onSubmit" class="submit-btn mt-12">完成</van-button>
         </van-cell-group>
       </div>
     </main>
@@ -44,6 +44,7 @@
 import getUsername from '../../mixins/index';
 import NavBar from '../../components/nav-back';
 import CountDown from '../../components/count-down.vue';
+import {resetPassword} from '../../api/index'
 export default {
   name: 'ResetPassword',
   mixins: [getUsername],
@@ -67,12 +68,12 @@ export default {
     };
   },
   methods: {
-    onCountDownFinish () {
-      this.isCountDownFinished = true;
-      this.hasSendMsg = false;
-    },
-    toggleStatus () {
-      this.hasSendMsg = true;
+    async onSubmit() {
+      try {
+        const {body} = await resetPassword(this.formData);
+        this.$store.dispatch('setUserInfo', body);
+      } catch (error) {
+      }
     },
     onBack () {
       this.$router.push({

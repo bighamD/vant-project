@@ -4,7 +4,6 @@
       <img src="../../../public/img/logo.png" alt="" />
     </div>
     <div class="login-box">
-        <van-loading />
       <van-cell-group :border="border">
         <van-field
           class="bd mb-18"
@@ -40,7 +39,7 @@
         <div class="login-tip">
           <span @click="toggleLoginType">{{ loginTips }}登录</span>
         </div>
-        <van-button class="submit-btn">登录</van-button>
+        <van-button @click="onSubmit" class="submit-btn">登录</van-button>
       </van-cell-group>
     </div>
     <div class="forget">
@@ -58,7 +57,8 @@
 <script>
 import getUsername from '../../mixins/index';
 import CountDown from '../../components/count-down.vue';
-
+import {login} from '../../api/index';
+import {setToken} from '../../utils/auth';
 export default {
   name: 'Login',
   mixins: [getUsername],
@@ -81,6 +81,13 @@ export default {
     };
   },
   methods: {
+    async onSubmit() {
+      try {
+        const {body} = await login(this.formData);
+        this.$store.dispatch('setUserInfo', body);
+      } catch (error) {
+      }
+    },
     toggleLoginType () {
       this.loginType = (this.loginType + 1) % 2;
       this.loginTips = {

@@ -75,7 +75,8 @@
 <script>
 import NavBar from '../../components/nav-back';
 import CountDown from '../../components/count-down.vue';
-import {register, getOfficialList} from '../../api/index'
+import {register, getOfficialList} from '../../api/index';
+import {setToken} from '../../utils/auth';
 export default {
   name: 'Register',
   components: {
@@ -92,9 +93,10 @@ export default {
       formData: {
         officeId: '',
         officeName: '',
-        username: '',
-        code: '',
-        password: '',
+        username: '18476697664',
+        code: '123456',
+        name: '',
+        password: '123456',
       },
       isAgree: [],
       officeList: [],
@@ -127,19 +129,26 @@ export default {
       });
     },
     readAgreement() {
-        this.$dialog.alert({
-            message: '<div style="color: red">我已经阅读</div>'
+        this.$dialog({
+            message: '<div>我已经阅读</div>'
         });
     },
     hasCheckAgreeMent() {
       return this.isAgree.length > 0;
     },
-    onSubmit() {
+    async onSubmit() {
       if (!this.hasCheckAgreeMent()) {
-        this.$dialog.alert({
+        return this.$dialog.confirm({
           message: '请先勾选同意协议'
         });
       }
+      try {
+        const {body } = await register(this.formData);
+        this.$store.dispatch('setUserInfo', body);
+      } catch (error) {
+        
+      }
+
     }
   }
 };
