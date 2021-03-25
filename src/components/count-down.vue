@@ -57,10 +57,9 @@ export default {
           mobie: this.mobile,
           type: +this.type,
         });
-        // alert(success)
-        // if (!success) {
-        //   this.hideCountDown();
-        // }
+        if (!success) {
+          this.hideCountDown();
+        }
       } catch (error) {
         this.hideCountDown();
       }

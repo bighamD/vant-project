@@ -40,7 +40,7 @@ export const getOfficialList = (params = {}) => {
   });
 };
 
-export const saveOrders = (params = {}) => {
+export const saveOrder = (params = {}) => {
   return fetchData({
     method: 'post',
     data: params,

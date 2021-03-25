@@ -3,7 +3,15 @@ module.exports = {
   publicPath: './',
 
   configureWebpack: {
-    mode: 'development'
+    mode: 'development',
     // publicPath: '.'
+    devServer: {
+      proxy: {
+        '/': {
+          target: 'http://116.62.161.102/education/a',
+          pathRewrite: { '^/': '' },
+        },
+      },
+    }
   }
 };

@@ -62,10 +62,10 @@
           :max="1"
         >
           <van-checkbox name="1">
-            <van-row>
+            <div class="flex-box">
               <span class="read">我已同意并阅读</span>
               <span class="argeement" @click="readAgreement">xx 用户协议</span>
-            </van-row>
+            </div>
           </van-checkbox>
         </van-checkbox-group>
       </div>
@@ -173,11 +173,16 @@ export default {
     padding: 0 14px;
     margin-top: 10px;
     height: 96px;
-    span {
-      display: inlie-block;
-      font-size: 12px;
-      line-height: 24px;
-      // height: 96px;
+    .flex-box {
+      align-content: center;
+      display: flex;
+      justify-content: space-between;
+      span {
+        display: inlie-block;
+        font-size: 12px;
+        line-height: 24px;
+        // height: 96px;
+      }
     }
     .argeement {
       color: @colorBlue;

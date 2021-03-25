@@ -5,9 +5,10 @@ import { Dialog, Toast } from 'vant';
 const timeout = 10 * 1000;
 
 const service = axios.create({
-  baseURL: 'http://116.62.161.102/education/a',
+  // baseURL: 'http://116.62.161.102/education/a',
   withCredentials: true, // send cookies when cross-domain requests
   timeout,
+  // headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 });
 
 service.interceptors.request.use(
