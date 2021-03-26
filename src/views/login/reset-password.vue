@@ -21,7 +21,7 @@
             placeholder="请输入验证码"
           >
             <template #button>
-              <count-down :mobile="formData.username" :type="3"></count-down>
+              <send-code :mobile="formData.username" :type="3"></send-code>
             </template>
           </van-field>
           <van-field
@@ -43,14 +43,14 @@
 <script>
 import getUsername from '../../mixins/index';
 import NavBar from '../../components/nav-back';
-import CountDown from '../../components/count-down.vue';
+import SendCode from '../../components/send-code.vue';
 import {resetPassword} from '../../api/index'
 export default {
   name: 'ResetPassword',
   mixins: [getUsername],
   components: {
     NavBar,
-    CountDown
+    SendCode
   },
   data () {
     return {
@@ -119,19 +119,6 @@ export default {
   }
   .login-box {
     box-sizing: border-box;
-    .c-blue {
-      color: #707070;
-      padding: 8px;
-      //   font-size: 12px;
-      &:before {
-        content: "";
-        position: absolute;
-        height: 32px;
-        width: 1px;
-        transform: translate(-10px, -4px);
-        background-color: @colorGray;
-      }
-    }
     .h46 {
       height: 46px;
     }

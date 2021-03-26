@@ -19,3 +19,17 @@
 .van-dialog__confirm, .van-dialog__confirm:active {
     color: #101010;
 }
+
+.c-blue {
+    color: #969799;
+    padding: .21333rem
+}
+
+.c-blue:before {
+    content: "";
+    position: absolute;
+    height: .85333rem;
+    width: .02667rem;
+    transform: translate(-.26667rem, -.10667rem);
+    background-color: #e8e8e8
+}

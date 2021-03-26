@@ -33,7 +33,7 @@
           placeholder="请输入验证码"
         >
           <template #button>
-            <count-down :mobile="formData.username" type=2></count-down>
+            <send-code :mobile="formData.username" type=2></send-code>
           </template>
         </van-field>
         <div class="login-tip">
@@ -56,14 +56,14 @@
 </template>
 <script>
 import getUsername from '../../mixins/index';
-import CountDown from '../../components/count-down.vue';
+import SendCode from '../../components/send-code.vue';
 import {login} from '../../api/index';
 import {setToken} from '../../utils/auth';
 export default {
   name: 'Login',
   mixins: [getUsername],
   components: {
-    CountDown
+    SendCode
   },
   data () {
     return {
@@ -83,13 +83,14 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        const {body} = await login(this.formData);
+        const {body} = await login(reqParams);
         this.$store.dispatch('setUserInfo', body);
       } catch (error) {
       }
     },
     toggleLoginType () {
       this.loginType = (this.loginType + 1) % 2;
+      this.formData.type = this.loginType + 1;
       this.loginTips = {
         0: '短信验证码',
         1: '账号密码'
@@ -126,20 +127,6 @@ export default {
   }
   .login-box {
     box-sizing: border-box;
-    .c-blue {
-      height: 100%;
-      color: #969799;
-      padding: 8px;
-      font-size: 14px;
-      &:before {
-        content: "";
-        position: absolute;
-        height: 32px;
-        width: 1px;
-        transform: translate(-10px, -4px);
-        background-color: @colorGray;
-      }
-    }
     .bd {
       border: 1px solid @colorGray;
       border-radius: 23px;

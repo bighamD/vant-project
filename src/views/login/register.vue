@@ -38,7 +38,7 @@
             placeholder="请输入验证码"
           >
             <template #button>
-            <count-down :mobile="formData.username" type=1></count-down>
+              <send-code :mobile="formData.username" type="1"></send-code>
             </template>
           </van-field>
           <van-field
@@ -52,15 +52,13 @@
             :right-icon="visiblePass ? 'eye-o' : 'closed-eye'"
             @click-right-icon="visiblePass = !visiblePass"
           ></van-field>
-          <van-button @click="onSubmit" class="submit-btn mt-12">注册</van-button>
+          <van-button @click="onSubmit" class="submit-btn mt-12"
+            >注册</van-button
+          >
         </van-cell-group>
       </div>
       <div class="argeement-box">
-        <van-checkbox-group
-          icon-size="16px"
-          v-model="isAgree"
-          :max="1"
-        >
+        <van-checkbox-group icon-size="16px" v-model="isAgree" :max="1">
           <van-checkbox name="1">
             <div class="flex-box">
               <span class="read">我已同意并阅读</span>
@@ -73,65 +71,70 @@
   </div>
 </template>
 <script>
-import NavBar from '../../components/nav-back';
-import CountDown from '../../components/count-down.vue';
-import {register, getOfficialList} from '../../api/index';
-import {setToken} from '../../utils/auth';
+import NavBar from "../../components/nav-back";
+import SendCode from "../../components/send-code.vue";
+import { register, getOfficialList } from "../../api/index";
+import { setToken } from "../../utils/auth";
 export default {
-  name: 'Register',
+  name: "Register",
   components: {
     NavBar,
-    CountDown
+    SendCode,
   },
-  data () {
+  data() {
     return {
       border: false,
       visiblePass: false,
       loginType: 0,
-      loginTips: '短信验证码',
-      codeTips: '获取验证码',
+      loginTips: "短信验证码",
+      codeTips: "获取验证码",
       formData: {
-        officeId: '',
-        officeName: '',
-        username: '18476697664',
-        code: '123456',
-        name: '',
-        password: '123456',
+        officeId: "",
+        officeName: "",
+        username: "18476697664",
+        code: "123456",
+        name: "",
+        password: "123456",
       },
       isAgree: [],
       officeList: [],
       officeNames: [],
-      showPicker: false
+      showPicker: false,
     };
   },
-  created(){
-    getOfficialList().then(({body}) => {
-      this.officeList = body.officeList.map(({id, name}) => ({officeId: id, officeName: name}));
-      this.officeNames = this.officeList.map(v => v.officeName);
-    });
+  created() {
+    this.wrapOfficeData();
   },
   methods: {
-    onConfirm (value) {
+    async wrapOfficeData() {
+      const { body } = await getOfficialList();
+      this.officeList = body.officeList.map(({ id, name }) => ({
+        officeId: id,
+        officeName: name,
+      }));
+      this.officeNames = this.officeList.map((v) => v.officeName);
+    },
+    onConfirm(value) {
       this.formData.officeName = value;
       this.formData.officeId = this.getOfficeId(value);
       this.showPicker = false;
     },
     getOfficeId(name) {
-      const item =  this.officeList.find(v => v.officeName === name);
+      const item = this.officeList.find((v) => v.officeName === name);
       return item && item.officeId;
     },
-    onBack () {
+    onBack() {
       this.$router.push({
-        path: '/login',
+        path: "/login",
         query: {
-          username: this.formData.username
-        }
+          username: this.formData.username,
+        },
       });
     },
     readAgreement() {
-        this.$dialog({
-            message: '<div>我已经阅读</div>'
-        });
+      this.$dialog({
+        message: "<div>我已经阅读</div>",
+      });
     },
     hasCheckAgreeMent() {
       return this.isAgree.length > 0;
@@ -139,18 +142,15 @@ export default {
     async onSubmit() {
       if (!this.hasCheckAgreeMent()) {
         return this.$dialog.confirm({
-          message: '请先勾选同意协议'
+          message: "请先勾选同意协议",
         });
       }
       try {
-        const {body } = await register(this.formData);
-        this.$store.dispatch('setUserInfo', body);
-      } catch (error) {
-        
-      }
-
-    }
-  }
+        const { body } = await register(this.formData);
+        this.$store.dispatch("setUserInfo", body);
+      } catch (error) {}
+    },
+  },
 };
 </script>
 <style scoped lang="less">
@@ -195,19 +195,6 @@ export default {
       border-radius: 24px;
       margin-bottom: 6px;
       border: 1px solid #e8e8e8;
-    }
-    .c-blue {
-      color: #707070;
-      padding: 8px;
-      // font-size: 12px;
-      &:before {
-        content: "";
-        position: absolute;
-        height: 32px;
-        width: 1px;
-        transform: translate(-10px, -4px);
-        background-color: @colorGray;
-      }
     }
     .bd {
       border: 1px solid @colorGray;

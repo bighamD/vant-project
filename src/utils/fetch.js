@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getToken } from '@/utils/auth';
 import { Dialog, Toast } from 'vant';
+import router from '../router/index';
 
 const timeout = 10 * 1000;
 
@@ -34,7 +35,12 @@ service.interceptors.response.use(
   response => {
     Toast.clear();
     const res = response.data;
-    if (res.success === false) {
+    if (!res.success) {
+      if (res.errorCode === '401') {
+        return router.push({
+          path: 'login',
+        })
+      }
       Dialog.confirm({
         message: res.msg
       });

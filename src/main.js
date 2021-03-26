@@ -1,3 +1,4 @@
+import 'normalize.css/normalize.css';
 import Vue from 'vue';
 import Vant from 'vant';
 import 'vant/lib/index.css';
