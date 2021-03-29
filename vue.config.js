@@ -15,7 +15,9 @@ module.exports = {
     devServer: {
       proxy: {
         '/': {
-          target: 'http://116.62.161.102/education/a',
+          // target: 'http://116.62.161.102/education/a',
+          target: 'https://8.136.232.173/education/a',
+
           pathRewrite: { '^/': '' },
         },
       },

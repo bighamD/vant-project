@@ -6,7 +6,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'amfe-flexible';
-import './style/global.css';
+import './style/global.less';
 // import './perssion';
 
 Vue.use(Vant);

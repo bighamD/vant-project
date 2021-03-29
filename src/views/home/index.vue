@@ -8,15 +8,16 @@
                   <img :src="userInfo.photo" alt=""/>
               </div>
               <div class="info-box">
-                <span class="user-name">{{userInfo.officeName}}</span>
-                <span class="user-address">平安银行大厦12F</span>
+                <span class="user-name">{{userInfo.username}}</span>
+                <span class="user-address">{{userInfo.officeName}}</span>
               </div>
             </div>
           </div>
           <div class="qrcode-box" @click="genQRcode">
-            <span class="left-icon">
+            <!-- <span class="left-icon"> -->
               <!-- <van-icon name="cash-back-record" /> -->
-            </span>
+              <img class="left-icon" src="../../../public/img/qrcode.jpeg" alt="" />
+            <!-- </span> -->
             <span class="text">生成支付码</span>
             <span class="right-icon">
               <van-icon name="arrow" />
@@ -33,17 +34,20 @@
           </div>
         </div>
         <div class="order-list">
-          <div class="order-info-box" v-for="i in orderList" :key="i">
+          <div class="order-info-box" v-for="row in orderList" :key="row.id">
             <div class="top">
-              <span class="order-price">$1231</span>
-              <span class="order-status">已支付</span>
+              <span class="order-price">¥{{row.totalAmount}}</span>
+              <span class="order-status">{{row.state | filterPayStatus}}</span>
             </div>
             <div class="bottom">
-              <span class="custom-name">彭大瓜</span>
-              <span class="create-date">20220-12-30</span>
+              <span class="custom-name">{{row.createBy.id}}</span>
+              <span class="create-date">{{row.updateDate}}</span>
             </div>
           </div>
-          <div>暂无订单</div>
+          <div v-if="orderList.length === 0" class="no-data_tips">
+            <img src="../../../public/img/no-data.jpg" alt="">
+            <div class="no-data_text">=͟͟͞͞(꒪⌓꒪*)！ 暂无更多数据</div>
+          </div>
         </div>
       </div>
     </main>
@@ -57,6 +61,7 @@
 <script>
 import {mapState} from 'vuex';
 import {getOrderList} from '../../api/index';
+import {filterPayStatus} from '../../filter/index';
 export default {
   name: 'Home',
   components: {
@@ -64,7 +69,6 @@ export default {
   data () {
     return {
       active: 0,
-      orderListLength: 3,
       orderList: [],
     };
   },
@@ -76,15 +80,18 @@ export default {
   },
   methods: {
     async reqOrderList() {
-      const {row = []} = await getOrderList();
-      this.orderList = row.slice(0, 3);
+      let {rows = []} = await getOrderList();
+      this.orderList = rows.slice(0, 3);
     },
     seeMore () {
       this.$router.push('./order-list');
     },
     genQRcode () {
       this.$router.push('./gen-qrcode');
-    }
+    },
+  },
+  filters: {
+    filterPayStatus,
   }
 };
 </script>
@@ -118,6 +125,7 @@ export default {
               text-align: left;
               height:24px;
               line-height: 24px;
+              color: rgba(16, 16, 16, 100);
             }
             .user-name {
               font-size: 14px;
@@ -136,9 +144,15 @@ export default {
           display: flex;
           align-items: center;
           .left-icon {
+            height: 20px;
+            width: 20px;
             left: 0;
             top: 10px;
             position: absolute;
+            img {
+              width: 100%;
+              height: 100%;
+            }
           }
           .text {
             font-size: 14px;

@@ -48,10 +48,11 @@ export const saveOrder = (params = {}) => {
   });
 };
 
-export const getOrderList = (params = {}) => {
+export const getOrderList = (params = {}, options = {loading: false}) => {
   return fetchData({
     method: 'get',
     params,
+    options,
     url: '/education/order/data'
   });
 };

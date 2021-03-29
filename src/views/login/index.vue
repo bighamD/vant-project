@@ -74,7 +74,7 @@ export default {
       codeTips: '获取验证码',
       formData: {
         password: '',
-        username: '',
+        username: '18476697664',
         type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
         code: ''
       },
@@ -82,11 +82,8 @@ export default {
   },
   methods: {
     async onSubmit() {
-      try {
-        const {body} = await login(reqParams);
-        this.$store.dispatch('setUserInfo', body);
-      } catch (error) {
-      }
+      const {body} = await login(this.formData);
+      this.$store.dispatch('setUserInfo', body);
     },
     toggleLoginType () {
       this.loginType = (this.loginType + 1) % 2;

@@ -54,8 +54,8 @@ export default {
       this.hasSendMsg = true;
       try {
         const {success} = await sendMsg({
-          mobie: this.mobile,
-          type: +this.type,
+          mobile: this.mobile,
+          type: this.type,
         });
         if (!success) {
           this.hideCountDown();
