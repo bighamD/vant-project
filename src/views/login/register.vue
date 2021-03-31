@@ -158,17 +158,6 @@ export default {
 @colorBlue: #2876eb;
 .container {
   padding: 30px 24px 0 24px;
-  .logo-box {
-    margin-top: 30px;
-    margin-bottom: 40px;
-  }
-  .forget {
-    margin-top: 18px;
-    span {
-      font-size: 12px;
-      color: @colorBlue;
-    }
-  }
   .argeement-box {
     padding: 0 14px;
     margin-top: 10px;
