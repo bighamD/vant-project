@@ -8,7 +8,7 @@ const timeout = 10 * 1000;
 const service = axios.create({
   // baseURL: 'http://8.136.232.173/education/a',
   // baseURL: 'http://116.62.161.102/education/a',
-  // baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: process.env.VUE_APP_BASE_API,
   withCredentials: true, // send cookies when cross-domain requests
   timeout,
 });
