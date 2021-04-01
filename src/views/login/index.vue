@@ -74,7 +74,7 @@ export default {
       codeTips: '获取验证码',
       formData: {
         password: '',
-        username: '18476697664',
+        username: '',
         type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
         code: ''
       },

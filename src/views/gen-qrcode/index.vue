@@ -68,6 +68,28 @@
             </van-radio-group>
           </template>
         </van-field>
+        <van-field label="支付通道" name="radio" required>
+          <template #input>
+            <van-radio-group v-model="formData.bankType" direction="horizontal">
+              <van-radio name="1902000">
+                线上
+                <template #icon="{ checked }">
+                  <span
+                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
+                  ></span>
+                </template>
+              </van-radio>
+              <van-radio name="1903000">
+                线下
+                <template #icon="{ checked }">
+                  <span
+                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
+                  ></span>
+                </template>
+              </van-radio>
+            </van-radio-group>
+          </template>
+        </van-field>
         <div class="submit-box">
           <van-button
             class="submit-btn"

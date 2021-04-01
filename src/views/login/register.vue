@@ -91,10 +91,10 @@ export default {
       formData: {
         officeId: "",
         officeName: "",
-        username: "18476697664",
-        code: "123456",
+        username: "",
+        code: "",
         name: "",
-        password: "123456",
+        password: "",
       },
       isAgree: [],
       officeList: [],
