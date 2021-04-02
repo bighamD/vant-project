@@ -72,3 +72,11 @@ export const getQRcode = (params = {}) => {
     url: '/education/order/qr_code'
   });
 };
+
+export const test = (params = {}) => {
+  return fetchData({
+    method: 'post',
+    data: params,
+    url: '/apiBase/page'
+  });
+};

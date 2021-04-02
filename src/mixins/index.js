@@ -1,6 +1,6 @@
 export default {
   created () {
-    const { username } = this.$router.currentRoute.query;
+    const { username } = this.$route.query;
     if (username) {
       this.formData.username = username;
     }
