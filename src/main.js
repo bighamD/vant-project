@@ -7,7 +7,7 @@ import router from './router';
 import store from './store';
 import 'amfe-flexible';
 import './style/global.less';
-// import './perssion';
+import './perssion';
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
