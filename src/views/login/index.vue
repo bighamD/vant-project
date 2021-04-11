@@ -13,7 +13,7 @@
           v-model="formData.username"
         ></van-field>
         <van-field
-          v-show="loginType === 0"
+          v-show="loginType === 1"
           class="bd"
           :border="border"
           icon="lock"
@@ -25,7 +25,7 @@
         ></van-field>
 
         <van-field
-          v-show="loginType === 1"
+          v-show="loginType === 0"
           v-model.number="formData.code"
           :border="border"
           class="bd"
@@ -58,7 +58,6 @@
 import getUsername from '../../mixins/index';
 import SendCode from '../../components/send-code.vue';
 import {login} from '../../api/index';
-import {setToken} from '../../utils/auth';
 export default {
   name: 'Login',
   mixins: [getUsername],
@@ -69,7 +68,7 @@ export default {
     return {
       border: false,
       visiblePass: false,
-      loginType: 0,
+      loginType: 1,
       loginTips: '短信验证码',
       codeTips: '获取验证码',
       formData: {

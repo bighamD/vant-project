@@ -17,10 +17,10 @@ const routes = [
     },
     component: () => import(/* webpackChunkName: "register" */ '../views/login/register.vue')
   },
-  // {
-  //   path: '/',
-  //   redirect: '/login'
-  // },
+  {
+    path: '/',
+    redirect: '/login'
+  },
   {
     path: '/login',
     name: 'Login',

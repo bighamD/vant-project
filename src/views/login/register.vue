@@ -42,7 +42,7 @@
             </template>
           </van-field>
           <van-field
-            v-if="loginType === 0"
+            v-if="loginType === 1"
             class="bd"
             :border="border"
             icon="lock"
@@ -74,7 +74,6 @@
 import NavBar from "../../components/nav-back";
 import SendCode from "../../components/send-code.vue";
 import { register, getOfficialList } from "../../api/index";
-import { setToken } from "../../utils/auth";
 export default {
   name: "Register",
   components: {
@@ -85,7 +84,7 @@ export default {
     return {
       border: false,
       visiblePass: false,
-      loginType: 0,
+      loginType: 1,
       loginTips: "短信验证码",
       codeTips: "获取验证码",
       formData: {
