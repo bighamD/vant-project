@@ -43,7 +43,7 @@ export const getOfficialList = (params = {}) => {
 export const saveOrder = (params = {}) => {
   return fetchData({
     method: 'post',
-    data: params,
+    params,
     url: '/education/order/save'
   });
 };

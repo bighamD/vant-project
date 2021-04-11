@@ -14,20 +14,20 @@ module.exports = {
     devServer: {
       proxy: {
         '/': {
-          target: 'http://116.62.161.102/education/a',
+          target: 'https://www.haoxuepay.com/education/a',
           // target: 'https://8.136.232.173/education/a',
           // target: 'http://192.168.43.84:8082',
 
           pathRewrite: { '^/': '' },
-          bypass: require('./mock/proxy')
+          // bypass: require('./mock/proxy')
         },
       },
-      before: (app, server) => {
-        app.get('/', function (req, res) {
-          res.redirect('index.html');
-        })
-        require('./mock/mock-server')(app)
-      }
+      // before: (app, server) => {
+      //   app.get('/', function (req, res) {
+      //     res.redirect('index.html');
+      //   })
+      //   require('./mock/mock-server')(app)
+      // }
     }
   },
   chainWebpack(config) {

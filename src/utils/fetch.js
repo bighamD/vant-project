@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '@/utils/auth';
+import { getToken, removeToken } from '@/utils/auth';
 import { Dialog, Toast } from 'vant';
 import router from '../router/index';
 
@@ -40,8 +40,12 @@ service.interceptors.response.use(
     const res = response.data;
     if (res.success === false) {
       if (res.errorCode === '401') {
+        removeToken();
         return router.push({
           path: 'login',
+          query: {
+            t: Date.now()
+          }
         })
       }
       Dialog.confirm({
