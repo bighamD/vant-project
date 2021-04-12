@@ -15,7 +15,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    if (config.options?.loading !== false) {
+    if (!config.options || config.options?.loading !== false) {
       Toast.loading({
         forbidClick: true,
         message: '加载中...',

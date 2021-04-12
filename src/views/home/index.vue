@@ -73,7 +73,6 @@ export default {
     };
   },
   created() {
-    console.log(this.userInfo)
     this.reqOrderList();
   },
   computed: {

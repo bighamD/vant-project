@@ -122,10 +122,11 @@ export default {
 @fontColor: #101010;
 .contaniner {
   background-color: #f1f1f1;
-  height: auto;
+  height: 100%;
 }
 .order-container {
   padding: 14px;
+  height: 88vh;
   .cell-detail {
     height: 245px;
     box-shadow: 0 1px 5px #ebedf0;
