@@ -52,6 +52,11 @@ const routes = [
     name: 'OrderList',
     component: () => import(/* webpackChunkName: "order-list" */ '../views/order-list/index.vue')
   },
+  {
+    path: '/wx-pay',
+    name: 'Wxpay',
+    component: () => import(/* webpackChunkName: "order-list" */ '../views/wx-pay/index.vue')
+  },
 
 ];
 

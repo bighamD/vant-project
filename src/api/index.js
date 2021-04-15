@@ -79,3 +79,11 @@ export const test = (params = {}) => {
     url: '/apiBase/page'
   });
 };
+
+export const wechatPay = (params = {}) => {
+  return fetchData({
+    method: 'get',
+    data: params,
+    url: '/pay/wechat_pay_data'
+  });
+}
