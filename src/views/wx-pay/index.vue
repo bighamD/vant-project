@@ -8,7 +8,7 @@ export default {
     async created() {
         let {code, state, id} = this.$route.query;
         
-        alert('href', location.href);
+        alert('location.href', location.href);
         
         alert('code', code, state, id)
         if (!code) {
