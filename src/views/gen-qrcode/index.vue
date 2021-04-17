@@ -188,7 +188,7 @@ export default {
       this.$router.go(-1);
     },
     fixAmount(e) {
-      this.formData.totalAmount = parseFloat(e.target.value).toFixed(2);
+      this.formData.totalAmount = parseFloat(e.target.value).toFixed(2) || 0;
     },
     translateHbFqNum(v) {
       return {
