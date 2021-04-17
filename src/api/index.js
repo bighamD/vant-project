@@ -87,3 +87,13 @@ export const wechatPay = (params = {}) => {
     url: '/pay/wechat_pay_data'
   });
 }
+
+export const updateOfficeName = (params = {}) => {
+  return fetchData({
+    method: 'get',
+    data: params,
+    url: '/userinfo/office_update'
+  });
+}
+
+

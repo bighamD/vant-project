@@ -2,14 +2,19 @@
     <div></div>
 </template>
 <script>
-import {wechatPay, } from '@/api';
+import {wechatPay} from '@/api';
 import {WX_AUTH_URI} from '@/const';
 export default {
     async created() {
-        const {code, state, id} = this.$route.query;
-        const redirect_uri = location.href.split('?')[0];
-        alert('code', code)
-        !code && (window.location.href = WX_AUTH_URI(redirect_uri, id));
+        let {code, state, id} = this.$route.query;
+        
+        alert('href', location.href);
+        
+        alert('code', code, state, id)
+        if (!code) {
+            id = id || localStorage.getItem('ordeId');
+            return window.location.href = WX_AUTH_URI(id)
+        }
         await this.reqWxPay(code, state);
     },
     methods: {

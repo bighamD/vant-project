@@ -11,7 +11,6 @@ import "./perssion";
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
- 
 
 new Vue({
   router,
@@ -19,18 +18,18 @@ new Vue({
   render: h => h(App),
 
   created() {
-    if (sessionStorage.getItem("store")) {
+    if (localStorage.getItem("store")) {
       this.$store.replaceState(
         Object.assign(
           {},
           this.$store.state.userInfo,
-          JSON.parse(sessionStorage.getItem("store"))
+          JSON.parse(localStorage.getItem("store"))
         )
       );
     }
 
     window.addEventListener("beforeunload", () => {
-      sessionStorage.setItem("store", JSON.stringify(store.state));
+      localStorage.setItem("store", JSON.stringify(store.state));
     });
   }
 }).$mount("#app");

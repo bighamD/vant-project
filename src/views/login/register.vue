@@ -16,20 +16,9 @@
           ></van-field>
           <van-field
             v-model="formData.officeName"
-            readonly
-            name="picker"
             class="ipt-picker"
-            placeholder="请选择商户"
-            @click="showPicker = true"
+            placeholder="请输入商户"
           />
-          <van-popup v-model="showPicker" position="bottom">
-            <van-picker
-              show-toolbar
-              :columns="officeNames"
-              @confirm="onConfirm"
-              @cancel="showPicker = false"
-            />
-          </van-popup>
           <van-field
             class="bd mb-7"
             v-model="formData.code"
@@ -96,23 +85,12 @@ export default {
         password: "",
       },
       isAgree: [],
-      officeList: [],
-      officeNames: [],
       showPicker: false,
     };
   },
   created() {
-    this.wrapOfficeData();
   },
   methods: {
-    async wrapOfficeData() {
-      const { body } = await getOfficialList();
-      this.officeList = body.officeList.map(({ id, name }) => ({
-        officeId: id,
-        officeName: name,
-      }));
-      this.officeNames = this.officeList.map((v) => v.officeName);
-    },
     onConfirm(value) {
       this.formData.officeName = value;
       this.formData.officeId = this.getOfficeId(value);

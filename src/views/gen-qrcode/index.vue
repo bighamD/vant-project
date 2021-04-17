@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="contaniner">
     <nav class="nav-bar">
       <van-nav-bar
@@ -92,38 +92,27 @@
           </template>
         </van-field>
         <template v-if="formData.bankType === '1903000'">
-          <van-field label="花呗分期数" name="radio">
-            <template #input>
-              <van-radio-group
-                v-model="formData.hbFqNum"
-                direction="horizontal"
-              >
-                <van-radio name="6">
-                  6期
-                  <template #icon="{ checked }">
-                    <span
-                      :class="['el-radio__inner', checked ? 'is-checked' : '']"
-                    ></span>
-                  </template>
-                </van-radio>
-                <van-radio name="12">
-                  12期
-                  <template #icon="{ checked }">
-                    <span
-                      :class="['el-radio__inner', checked ? 'is-checked' : '']"
-                    ></span>
-                  </template>
-                </van-radio>
-              </van-radio-group>
-            </template>
-          </van-field>
-          <van-cell v-if="!!formData.hbFqNum">
-            <div class="fq-tips-box">
-              分{{ formData.hbFqNum }}个月还款（0手续费），共减免手续费{{
-                charge
-              }}元
-            </div>
-          </van-cell>
+          <van-field
+            class="label-width40"
+            v-model="formData.hbFqNum"
+            name="picker"
+            placeholder="请选择分期数"
+            label="分期数"
+            @click="showPicker = true"
+          />
+          <van-popup v-model="showPicker" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="columns"
+              @confirm="onConfirm"
+              @cancel="showPicker = false"
+            />
+          </van-popup>
+          <div class="fq-tips-box" v-if="translateHbFqNum(formData.hbFqNum)">
+            分{{
+              translateHbFqNum(formData.hbFqNum)
+            }}个月还款（0手续费），共减免手续费{{ charge }}元
+          </div>
         </template>
         <div class="submit-box">
           <van-button
@@ -160,13 +149,16 @@ export default {
         payScene: "01", // 02线下，01线上
         hbFqNum: "",
       },
+      columns: ["不分期", "6期", "12期"],
+      showPicker: false,
     };
   },
   computed: {
     charge() {
       const rate = {
-        6: 0.045,
-        12: 0.088,
+        '6期': 0.045,
+        '12期': 0.075,
+        '不分期': 0
       }[this.formData.hbFqNum];
 
       return (this.formData.totalAmount * rate).toFixed(2);
@@ -174,21 +166,23 @@ export default {
   },
   methods: {
     async saveOrderInfo() {
+      this.formData.hbFqNum = this.translateHbFqNum(this.formData.hbFqNum);
       const { body } = await saveOrder(this.formData);
       const orderId = body.order.id;
-      const query = {
-        id: orderId,
-      }
-      const url = this.formData.bankType === "1902000" ? "/wx-pay" : "/qrcode";
 
-      if (url === '/qrcode') {
-        query.orderId = id;
-      }
+      localStorage.setItem("orderId", orderId);
 
       this.$router.push({
-        path: url,
-        query,
+        path: "qrcode",
+        query: {
+          orderId,
+        },
       });
+    },
+    onConfirm(v) {
+      this.formData.hbFqNum = v;
+
+      this.showPicker = false;
     },
     onClickLeft() {
       this.$router.go(-1);
@@ -196,15 +190,26 @@ export default {
     fixAmount(e) {
       this.formData.totalAmount = parseFloat(e.target.value).toFixed(2);
     },
+    translateHbFqNum(v) {
+      return {
+        "6期": 6,
+        "12期": 12,
+        "不分期": "",
+      }[v];
+    },
   },
 };
 </script>
 <style lang="less" scoped>
 .submit-btn {
+  margin-top: 0;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
   .van-button__text {
     color: #707070;
   }
+}
+.label-width40 .van-field__label {
+  width: 60px !important;
 }
 .fq-tips-box {
   font-size: 12px;
