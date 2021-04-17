@@ -1,4 +1,4 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 
 module.exports = {
   lintOnSave: false,
@@ -18,10 +18,10 @@ module.exports = {
           // target: 'https://8.136.232.173/education/a',
           // target: 'http://192.168.43.84:8082',
 
-          pathRewrite: { '^/': '' },
+          pathRewrite: { '^/': '' }
           // bypass: require('./mock/proxy')
-        },
-      },
+        }
+      }
       // before: (app, server) => {
       //   app.get('/', function (req, res) {
       //     res.redirect('index.html');
@@ -30,7 +30,7 @@ module.exports = {
       // }
     }
   },
-  chainWebpack(config) {
+  chainWebpack (config) {
     config
       .optimization.splitChunks({
         chunks: 'all',
@@ -57,9 +57,9 @@ module.exports = {
             minChunks: 3, //  minimum common number/
             priority: 5,
             reuseExistingChunk: true,
-            chunks: 'initial',
+            chunks: 'initial'
           }
         }
-      })
+      });
   }
 };

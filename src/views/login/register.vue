@@ -60,74 +60,74 @@
   </div>
 </template>
 <script>
-import NavBar from "../../components/nav-back";
-import SendCode from "../../components/send-code.vue";
-import { register, getOfficialList } from "../../api/index";
+import NavBar from '../../components/nav-back';
+import SendCode from '../../components/send-code.vue';
+import { register } from '../../api/index';
 export default {
-  name: "Register",
+  name: 'Register',
   components: {
     NavBar,
-    SendCode,
+    SendCode
   },
-  data() {
+  data () {
     return {
       border: false,
       visiblePass: false,
       loginType: 1,
-      loginTips: "短信验证码",
-      codeTips: "获取验证码",
+      loginTips: '短信验证码',
+      codeTips: '获取验证码',
       formData: {
-        officeId: "",
-        officeName: "",
-        username: "",
-        code: "",
-        name: "",
-        password: "",
+        officeId: '',
+        officeName: '',
+        username: '',
+        code: '',
+        name: '',
+        password: ''
       },
       isAgree: [],
-      showPicker: false,
+      showPicker: false
     };
   },
-  created() {
+  created () {
   },
   methods: {
-    onConfirm(value) {
+    onConfirm (value) {
       this.formData.officeName = value;
       this.formData.officeId = this.getOfficeId(value);
       this.showPicker = false;
     },
-    getOfficeId(name) {
+    getOfficeId (name) {
       const item = this.officeList.find((v) => v.officeName === name);
       return item && item.officeId;
     },
-    onBack() {
+    onBack () {
       this.$router.push({
-        path: "/login",
+        path: '/login',
         query: {
-          username: this.formData.username,
-        },
+          username: this.formData.username
+        }
       });
     },
-    readAgreement() {
+    readAgreement () {
       this.$dialog({
-        message: "<div>我已经阅读</div>",
+        message: '<div>我已经阅读</div>'
       });
     },
-    hasCheckAgreeMent() {
+    hasCheckAgreeMent () {
       return this.isAgree.length > 0;
     },
-    async onSubmit() {
+    async onSubmit () {
       if (!this.hasCheckAgreeMent()) {
         return this.$dialog.confirm({
-          message: "请先勾选同意协议",
+          message: '请先勾选同意协议'
         });
       }
       try {
         const { body } = await register(this.formData);
-        this.$store.dispatch("setUserInfo", body);
+        this.$store.dispatch('setUserInfo', body);
       } catch (error) {}
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="less">

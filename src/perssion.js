@@ -1,7 +1,7 @@
 import router from './router';
 import { getToken } from '@/utils/auth';
 
-const whiteList = ['/login', '/register', '/resetPassword', '/wxpay'];
+const whiteList = ['/login', '/register', '/resetPassword'];
 
 router.beforeEach(async (to, from, next) => {
   const hasToken = getToken();
@@ -15,7 +15,7 @@ router.beforeEach(async (to, from, next) => {
   } else {
     /* has no token */
 
-    if (whiteList.includes(to.path)) {
+    if (whiteList.includes(to.path) || to.path === '/wxpay') {
       // in the free login whitelist, go directly
       next();
     } else {

@@ -61,11 +61,11 @@
   </div>
 </template>
 <script>
-import { getOrderList } from "../../api/index";
-import { filterPayStatus } from "../../filter/index";
+import { getOrderList } from '../../api/index';
+import { filterPayStatus } from '../../filter/index';
 
 export default {
-  data() {
+  data () {
     return {
       border: false,
       active: 1,
@@ -74,47 +74,47 @@ export default {
         loading: false,
         finished: false,
         listLoading: false,
-        total: 0,
+        total: 0
       },
       reqParams: {
         pageNo: 1,
-        pageSize: 3,
-      },
+        pageSize: 3
+      }
     };
   },
-  created() {
+  created () {
     this.reqOrderList();
   },
   methods: {
-    async reqOrderList() {
-      let { rows = [], total } = await getOrderList(this.reqParams);
+    async reqOrderList () {
+      const { rows = [], total } = await getOrderList(this.reqParams);
       this.state.total = total;
       this.state.list = rows.slice(0, 3);
     },
-    onClickLeft() {
+    onClickLeft () {
       this.$router.go(-1);
     },
-    async onRefresh() {
+    async onRefresh () {
       this.reqParams.pageNo = 1;
       await this.reqOrderList();
       this.state.loading = false;
       this.state.finished = false;
     },
-    async onLoad() {
+    async onLoad () {
       this.reqParams.pageNo++;
       this.state.listLoading = true;
-      let { rows = [] } = await getOrderList(this.reqParams);
+      const { rows = [] } = await getOrderList(this.reqParams);
       if (rows.length === 0 || this.state.list.length >= this.state.total) {
         this.state.finished = true;
       } else {
         this.state.list.push(...rows);
       }
       this.state.listLoading = false;
-    },
+    }
   },
   filters: {
-    filterPayStatus,
-  },
+    filterPayStatus
+  }
 };
 </script>
 <style lang="less" scoped>

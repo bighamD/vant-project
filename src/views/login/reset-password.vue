@@ -44,7 +44,7 @@
 import getUsername from '../../mixins/index';
 import NavBar from '../../components/nav-back';
 import SendCode from '../../components/send-code.vue';
-import {resetPassword} from '../../api/index'
+import { resetPassword } from '../../api/index';
 export default {
   name: 'ResetPassword',
   mixins: [getUsername],
@@ -68,9 +68,9 @@ export default {
     };
   },
   methods: {
-    async onSubmit() {
+    async onSubmit () {
       try {
-        const {body} = await resetPassword(this.formData);
+        const { body } = await resetPassword(this.formData);
         this.$store.dispatch('setUserInfo', body);
       } catch (error) {
       }

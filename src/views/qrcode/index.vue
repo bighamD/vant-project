@@ -35,33 +35,33 @@
   </div>
 </template>
 <script>
-import VueQrcode from "vue-qrcode";
-import { getQRcode } from "../../api/index";
+import VueQrcode from 'vue-qrcode';
+import { getQRcode } from '../../api/index';
 
 const timeout = 3 * 1000;
 
 export default {
   components: {
-    VueQrcode,
+    VueQrcode
   },
-  data() {
+  data () {
     return {
-      active: "0",
+      active: '0',
       timer: null,
       qrcodeCfg: {
-        qrCodeExpireTime: "",
-        qrCodeUrl: "",
-      },
+        qrCodeExpireTime: '',
+        qrCodeUrl: ''
+      }
     };
   },
-  created() {
+  created () {
     this.initQrcode();
   },
   methods: {
-    refreshQRcode() {
+    refreshQRcode () {
       try {
-        let { qrCodeExpireTime: expireTimeStamp } = this.qrcodeCfg;
-        let nowTimeStamp = Date.now();
+        const { qrCodeExpireTime: expireTimeStamp } = this.qrcodeCfg;
+        const nowTimeStamp = Date.now();
         if (nowTimeStamp > expireTimeStamp) {
           this.onRefresh();
           return true;
@@ -72,30 +72,30 @@ export default {
     /**
      * 每三秒检查一次是否要刷新二维码,
      */
-    loopUntilExpired(cb) {
+    loopUntilExpired (cb) {
       this.timer = setTimeout(() => {
         if (!cb()) {
           this.loopUntilExpired(cb);
         }
       }, timeout);
     },
-    async initQrcode() {
+    async initQrcode () {
       const orderId = this.$route.query;
       const { body } = await getQRcode(orderId);
       this.qrcodeCfg = body;
       this.loopUntilExpired(this.refreshQRcode);
     },
-    onRefresh() {
+    onRefresh () {
       clearTimeout(this.timer);
       this.initQrcode();
     },
-    onClickLeft() {
+    onClickLeft () {
       this.$router.go(-1);
-    },
+    }
   },
-  destroyed() {
+  destroyed () {
     clearTimeout(this.timer);
-  },
+  }
 };
 </script>
 <style lang="less" scoped>

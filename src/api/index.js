@@ -84,9 +84,9 @@ export const wechatPay = (params = {}) => {
   return fetchData({
     method: 'get',
     data: params,
-    url: '/pay/wechat_pay_data'
+    url: '/education/pay/wechat_pay_data'
   });
-}
+};
 
 export const updateOfficeName = (params = {}) => {
   return fetchData({
@@ -94,6 +94,4 @@ export const updateOfficeName = (params = {}) => {
     data: params,
     url: '/userinfo/office_update'
   });
-}
-
-
+};

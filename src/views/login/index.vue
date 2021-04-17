@@ -57,7 +57,7 @@
 <script>
 import getUsername from '../../mixins/index';
 import SendCode from '../../components/send-code.vue';
-import {login} from '../../api/index';
+import { login } from '../../api/index';
 export default {
   name: 'Login',
   mixins: [getUsername],
@@ -76,12 +76,12 @@ export default {
         username: '',
         type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
         code: ''
-      },
+      }
     };
   },
   methods: {
-    async onSubmit() {
-      const {body} = await login(this.formData);
+    async onSubmit () {
+      const { body } = await login(this.formData);
       this.$store.dispatch('setUserInfo', body);
     },
     toggleLoginType () {

@@ -134,70 +134,70 @@
   </div>
 </template>
 <script>
-import { saveOrder } from "../../api/index";
+import { saveOrder } from '../../api/index';
 
 export default {
-  data() {
+  data () {
     return {
       active: 0,
       formData: {
-        bankType: "1902000",
-        clientPhone: "",
-        clientName: "",
-        totalAmount: "",
-        note: "",
-        payScene: "01", // 02线下，01线上
-        hbFqNum: "",
+        bankType: '1902000',
+        clientPhone: '',
+        clientName: '',
+        totalAmount: '',
+        note: '',
+        payScene: '01', // 02线下，01线上
+        hbFqNum: ''
       },
-      columns: ["不分期", "6期", "12期"],
-      showPicker: false,
+      columns: ['不分期', '6期', '12期'],
+      showPicker: false
     };
   },
   computed: {
-    charge() {
+    charge () {
       const rate = {
         '6期': 0.045,
         '12期': 0.075,
-        '不分期': 0
+        不分期: 0
       }[this.formData.hbFqNum];
 
       return (this.formData.totalAmount * rate).toFixed(2);
-    },
+    }
   },
   methods: {
-    async saveOrderInfo() {
+    async saveOrderInfo () {
       this.formData.hbFqNum = this.translateHbFqNum(this.formData.hbFqNum);
       const { body } = await saveOrder(this.formData);
       const orderId = body.order.id;
 
-      localStorage.setItem("orderId", orderId);
+      localStorage.setItem('orderId', orderId);
 
       this.$router.push({
-        path: "qrcode",
+        path: 'qrcode',
         query: {
-          orderId,
-        },
+          orderId
+        }
       });
     },
-    onConfirm(v) {
+    onConfirm (v) {
       this.formData.hbFqNum = v;
 
       this.showPicker = false;
     },
-    onClickLeft() {
+    onClickLeft () {
       this.$router.go(-1);
     },
-    fixAmount(e) {
+    fixAmount (e) {
       this.formData.totalAmount = parseFloat(e.target.value).toFixed(2) || 0;
     },
-    translateHbFqNum(v) {
+    translateHbFqNum (v) {
       return {
-        "6期": 6,
-        "12期": 12,
-        "不分期": "",
+        '6期': 6,
+        '12期': 12,
+        不分期: ''
       }[v];
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

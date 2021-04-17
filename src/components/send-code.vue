@@ -11,51 +11,51 @@
   </div>
 </template>
 <script>
-import { sendMsg } from "../api/index";
+import { sendMsg } from '../api/index';
 export default {
   props: {
     time: {
       type: Number,
-      default: () => 60 * 1000,
+      default: () => 60 * 1000
     },
     type: {
-      type: [Number, String],
+      type: [Number, String]
     },
     mobile: {
-      type: [Number, String],
-    },
+      type: [Number, String]
+    }
   },
-  data() {
+  data () {
     return {
-      hasSendMsg: false,
+      hasSendMsg: false
     };
   },
   methods: {
-    onCountDownFinish() {
+    onCountDownFinish () {
       this.isCountDownFinished = true;
       this.hideCountDown();
     },
-    hideCountDown() {
+    hideCountDown () {
       this.hasSendMsg = false;
     },
-    isPhoneValid() {
+    isPhoneValid () {
       if (!this.mobile) {
         return this.$dialog({
-          message: "请输入手机号码",
+          message: '请输入手机号码'
         });
       } else if (!/^1[3456789]\d{9}$/.test(this.mobile)) {
         return this.$dialog({
-          message: "请输入正确的手机号码",
+          message: '请输入正确的手机号码'
         });
       }
     },
-    async sendMsgCode() {
+    async sendMsgCode () {
       if (this.isPhoneValid()) return;
       this.hasSendMsg = true;
       try {
-        const {success} = await sendMsg({
+        const { success } = await sendMsg({
           mobile: this.mobile,
-          type: this.type,
+          type: this.type
         });
         if (!success) {
           this.hideCountDown();
@@ -63,8 +63,8 @@ export default {
       } catch (error) {
         this.hideCountDown();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

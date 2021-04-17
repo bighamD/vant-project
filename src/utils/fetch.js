@@ -10,7 +10,7 @@ const baseURL = IS_DEV ? '' : process.env.VUE_APP_BASE_API;
 const service = axios.create({
   baseURL,
   withCredentials: true, // send cookies when cross-domain requests
-  timeout,
+  timeout
 });
 
 service.interceptors.request.use(
@@ -46,7 +46,7 @@ service.interceptors.response.use(
           query: {
             t: Date.now()
           }
-        })
+        });
       }
       Dialog.confirm({
         message: res.msg

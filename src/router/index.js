@@ -56,11 +56,12 @@ const routes = [
     path: '/wxpay',
     name: 'Wxpay',
     component: () => import(/* webpackChunkName: "order-list" */ '../views/wx-pay/index.vue')
-  },
+  }
 
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 
