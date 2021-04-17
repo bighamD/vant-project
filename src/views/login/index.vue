@@ -33,13 +33,14 @@
           placeholder="请输入验证码"
         >
           <template #button>
-            <send-code :mobile="formData.username" type=2></send-code>
+            <send-code :mobile="formData.username" type="2"></send-code>
           </template>
         </van-field>
         <div class="login-tip">
           <span @click="toggleLoginType">{{ loginTips }}登录</span>
         </div>
         <van-button @click="onSubmit" class="submit-btn">登录</van-button>
+        <van-button @click="p" class="submit-btn">登xxx录</van-button>
       </van-cell-group>
     </div>
     <div class="forget">
@@ -55,52 +56,73 @@
   </div>
 </template>
 <script>
-import getUsername from '../../mixins/index';
-import SendCode from '../../components/send-code.vue';
-import {login} from '../../api/index';
+import getUsername from "../../mixins/index";
+import SendCode from "../../components/send-code.vue";
+import { login } from "../../api/index";
 export default {
-  name: 'Login',
+  name: "Login",
   mixins: [getUsername],
   components: {
-    SendCode
+    SendCode,
   },
-  data () {
+  data() {
     return {
       border: false,
       visiblePass: false,
       loginType: 1,
-      loginTips: '短信验证码',
-      codeTips: '获取验证码',
+      loginTips: "短信验证码",
+      codeTips: "获取验证码",
       formData: {
-        password: '',
-        username: '',
-        type: '2', // {1: '短信验证码登录',  2 :'密码登录'}
-        code: ''
+        password: "",
+        username: "",
+        type: "2", // {1: '短信验证码登录',  2 :'密码登录'}
+        code: "",
       },
     };
   },
   methods: {
     async onSubmit() {
-      const {body} = await login(this.formData);
-      this.$store.dispatch('setUserInfo', body);
+      const { body } = await login(this.formData);
+      this.$store.dispatch("setUserInfo", body);
     },
-    toggleLoginType () {
+    p() {
+      wx.ready(() => {
+        wx.checkJsApi({
+          jsApiList: ["chooseImage", "getLocation"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+          success: function (res) {
+            // 以键值对的形式返回，可用的api值true，不可用为false
+            // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+              console.log(res)
+          },
+        });
+        wx.getLocation({
+          type: "wgs84", // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+          success: function (res) {
+            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed; // 速度，以米/每秒计
+            var accuracy = res.accuracy; // 位置精度
+          },
+        });
+      });
+    },
+    toggleLoginType() {
       this.loginType = (this.loginType + 1) % 2;
       this.formData.type = this.loginType + 1;
       this.loginTips = {
-        0: '短信验证码',
-        1: '账号密码'
+        0: "短信验证码",
+        1: "账号密码",
       }[this.loginType];
     },
-    goPage (path) {
+    goPage(path) {
       this.$router.push({
         path,
         query: {
-          username: this.formData.username
-        }
+          username: this.formData.username,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="less">

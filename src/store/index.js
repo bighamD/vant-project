@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: {},
-    token: ""
+    token: "",
+    iframePostMessageData: {},
   },
   mutations: {
     SET_USER_INFO(state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, payload) {
       state.token = payload;
+    },
+    SET_IFREAME_DATA(state, payload) {
+      state.iframePostMessageData = payload;
     }
   },
   actions: {
@@ -27,6 +31,9 @@ export default new Vuex.Store({
       commit("SET_TOKEN", token);
       setToken(token);
       router.push("/home");
-    }
+    },
+    setIframePostMessageData({ commit }, data) {
+      commit("SET_IFREAME_DATA", data);
+    } 
   }
 });

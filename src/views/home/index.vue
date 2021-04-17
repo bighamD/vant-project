@@ -50,6 +50,7 @@
           </div>
         </div>
       </div>
+      <button @click="jump">跳转</button>
     </main>
     <van-tabbar  v-model="active">
         <van-tabbar-item icon="home-o" to="/home">我的</van-tabbar-item>
@@ -89,6 +90,14 @@ export default {
     genQRcode () {
       this.$router.push('./gen-qrcode');
     },
+    jump() {
+      this.$router.push({
+        path: '/iframe',
+        query: {
+          src: 'http://localhost:8081/'
+        }
+      })
+    }
   },
   filters: {
     filterPayStatus,

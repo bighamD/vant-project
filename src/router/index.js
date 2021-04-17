@@ -52,6 +52,11 @@ const routes = [
     name: 'OrderList',
     component: () => import(/* webpackChunkName: "order-list" */ '../views/order-list/index.vue')
   },
+  {
+    path: '/iframe',
+    name: 'xxxx',
+    component: () => import(/* webpackChunkName: "order-list" */ '../views/iframe.vue')
+  },
 
 ];
 
