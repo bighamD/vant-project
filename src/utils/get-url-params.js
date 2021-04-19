@@ -4,7 +4,7 @@ export const getUrlParams = url => {
   const matches = serach.split('&');
   return matches.reduce((ret, curr) => {
     const [key, value] = curr.split('=');
-    ret[key] = value;
+    ret[key] = value.replace('#/wxpay', '');
     return ret;
   }, {});
 };

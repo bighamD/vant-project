@@ -83,7 +83,7 @@ export const test = (params = {}) => {
 export const wechatPay = (params = {}) => {
   return fetchData({
     method: 'get',
-    data: params,
+    params,
     url: '/education/pay/wechat_pay_data'
   });
 };
