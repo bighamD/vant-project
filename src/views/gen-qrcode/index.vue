@@ -47,28 +47,6 @@
           :rules="[{ required: true, message: '请填写价格' }]"
         />
 
-        <van-field label="支付通道" name="radio" required>
-          <template #input>
-            <van-radio-group v-model="formData.payScene" direction="horizontal">
-              <van-radio name="01">
-                线上
-                <template #icon="{ checked }">
-                  <span
-                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
-                  ></span>
-                </template>
-              </van-radio>
-              <van-radio name="02">
-                线下
-                <template #icon="{ checked }">
-                  <span
-                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
-                  ></span>
-                </template>
-              </van-radio>
-            </van-radio-group>
-          </template>
-        </van-field>
         <van-field label="支付类型" name="radio" required>
           <template #input>
             <van-radio-group v-model="formData.bankType" direction="horizontal">
@@ -82,6 +60,28 @@
               </van-radio>
               <van-radio name="1903000">
                 支付宝
+                <template #icon="{ checked }">
+                  <span
+                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
+                  ></span>
+                </template>
+              </van-radio>
+            </van-radio-group>
+          </template>
+        </van-field>
+        <van-field label="支付通道" name="radio" required>
+          <template #input>
+            <van-radio-group v-model="formData.payScene" direction="horizontal">
+              <van-radio name="01" :disabled="formData.bankType === '1903000'">
+                线上
+                <template #icon="{ checked }">
+                  <span
+                    :class="['el-radio__inner', checked ? 'is-checked' : '']"
+                  ></span>
+                </template>
+              </van-radio>
+              <van-radio name="02">
+                线下
                 <template #icon="{ checked }">
                   <span
                     :class="['el-radio__inner', checked ? 'is-checked' : '']"
@@ -134,70 +134,77 @@
   </div>
 </template>
 <script>
-import { saveOrder } from '../../api/index';
+import { saveOrder } from "../../api/index";
 
 export default {
-  data () {
+  data() {
     return {
       active: 0,
       formData: {
-        bankType: '1902000',
-        clientPhone: '',
-        clientName: '',
-        totalAmount: '',
-        note: '',
-        payScene: '01', // 02线下，01线上
-        hbFqNum: ''
+        bankType: "",
+        clientPhone: "",
+        clientName: "",
+        totalAmount: "",
+        note: "",
+        payScene: "", // 02线下，01线上
+        hbFqNum: "",
       },
-      columns: ['不分期', '6期', '12期'],
-      showPicker: false
+      columns: ["不分期", "6期", "12期"],
+      showPicker: false,
     };
   },
   computed: {
-    charge () {
+    charge() {
       const rate = {
-        '6期': 0.045,
-        '12期': 0.075,
-        不分期: 0
+        "6期": 0.045,
+        "12期": 0.075,
+        不分期: 0,
       }[this.formData.hbFqNum];
 
       return (this.formData.totalAmount * rate).toFixed(2);
-    }
+    },
+  },
+  watch: {
+    "formData.bankType"() {
+      if (this.formData.bankType === "1903000") {
+        this.formData.payScene = "02";
+      }
+    },
   },
   methods: {
-    async saveOrderInfo () {
+    async saveOrderInfo() {
       this.formData.hbFqNum = this.translateHbFqNum(this.formData.hbFqNum);
       const { body } = await saveOrder(this.formData);
       const orderId = body.order.id;
 
-      localStorage.setItem('orderId', orderId);
+      localStorage.setItem("orderId", orderId);
 
       this.$router.push({
-        path: 'qrcode',
+        path: "qrcode",
         query: {
-          orderId
-        }
+          orderId,
+        },
       });
     },
-    onConfirm (v) {
+    onConfirm(v) {
       this.formData.hbFqNum = v;
 
       this.showPicker = false;
     },
-    onClickLeft () {
+    onClickLeft() {
       this.$router.go(-1);
     },
-    fixAmount (e) {
+    fixAmount(e) {
       this.formData.totalAmount = parseFloat(e.target.value).toFixed(2) || 0;
     },
-    translateHbFqNum (v) {
+    translateHbFqNum(v) {
       return {
-        '6期': 6,
-        '12期': 12,
-        不分期: ''
+        "6期": 6,
+        "12期": 12,
+        不分期: "",
       }[v];
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
