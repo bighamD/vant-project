@@ -91,7 +91,7 @@ export const wechatPay = (params = {}) => {
 export const updateOfficeName = (params = {}) => {
   return fetchData({
     method: 'get',
-    data: params,
-    url: '/userinfo/office_update'
+    params,
+    url: '/education/userinfo/office_update'
   });
 };

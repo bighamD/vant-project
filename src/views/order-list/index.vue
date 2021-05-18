@@ -121,7 +121,7 @@ export default {
 @gray: rgba(183, 182, 182, 100);
 @fontColor: #101010;
 .contaniner {
-  background-color: #f1f1f1;
+  // background-color: #f1f1f1;
   height: 100%;
 }
 .order-container {

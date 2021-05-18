@@ -76,52 +76,50 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { getOrderList, updateOfficeName } from '../../api/index';
-import { filterPayStatus } from '../../filter/index';
+import { mapState } from "vuex";
+import { getOrderList, updateOfficeName } from "../../api/index";
+import { filterPayStatus } from "../../filter/index";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {},
-  data () {
+  data() {
     return {
       active: 0,
       orderList: [],
       showEdit: false,
-      officeName: ''
+      officeName: "",
     };
   },
-  created () {
+  created() {
     this.reqOrderList();
   },
 
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(["userInfo"]),
   },
   methods: {
-    async reqOrderList () {
+    async reqOrderList() {
       const { rows = [] } = await getOrderList();
       this.orderList = rows.slice(0, 3);
     },
-    async handleConfirm () {
+    async handleConfirm() {
       const officeName = this.officeName;
-      try {
-        await updateOfficeName({
-          officeName
-        });
-        this.userInfo.officeName = officeName;
-        this.$store.dispatch('setUserInfo', this.userInfo);
-      } catch (err) {}
+      await updateOfficeName({
+        officeName,
+      });
+      this.userInfo.officeName = officeName;
+      this.$store.dispatch("setUserInfo", this.userInfo);
     },
-    seeMore () {
-      this.$router.push('./order-list');
+    seeMore() {
+      this.$router.push("./order-list");
     },
-    genQRcode () {
-      this.$router.push('./gen-qrcode');
-    }
+    genQRcode() {
+      this.$router.push("./gen-qrcode");
+    },
   },
   filters: {
-    filterPayStatus
-  }
+    filterPayStatus,
+  },
 };
 </script>
 <style lang="less" scoped>
